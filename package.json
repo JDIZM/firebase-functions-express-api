@@ -1,0 +1,19 @@
+{
+  "name": "firebase-functions-express-api",
+  "version": "1.0.0",
+  "description": "express api with firbase cloud functions.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JDIZM/firebase-functions-express-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JDIZM/firebase-functions-express-api/issues"
+  },
+  "homepage": "https://github.com/JDIZM/firebase-functions-express-api#readme"
+}
