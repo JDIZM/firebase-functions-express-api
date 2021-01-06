@@ -6,7 +6,7 @@ express api with firebase cloud functions.
 - verify recaptcha
 - send mail
 
-API URL - https://us-central1-nuxt-portfolio-8d1bf.cloudfunctions.net/api/
+API URL - https://PROJECT-NAME.cloudfunctions.net/api/
 
 * /verify
 * /send-mail
