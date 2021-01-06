@@ -11,8 +11,23 @@ API URL - https://PROJECT-NAME.cloudfunctions.net/api/
 * /verify
 * /send-mail
 
+
+## ENV
+
+configure the .env variables in the example
+
+* mailgun api
+* recaptcha api
+* destination email 
+* basic auth pass
+
 ## FIREBASE CONFIG
 
+setup a new project and selection functions, don't overwrite the files.
+
+```
+firebase init
+```
 
 add an existing project
 ```
