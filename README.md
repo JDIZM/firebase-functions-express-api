@@ -11,6 +11,14 @@ API URL - https://PROJECT-NAME.cloudfunctions.net/api/
 * /verify
 * /send-mail
 
+## TEST LOCALLY
+
+/server folder contains the node setup only
+
+```
+cd server
+node index.js
+```
 
 ## ENV
 

@@ -1,9 +1,14 @@
-const functions = require('firebase-functions')
-const admin = require('firebase-admin')
+// const functions = require('firebase-functions')
+// const admin = require('firebase-admin')
 const nodemailer = require('nodemailer')
 const dotenv = require('dotenv')
 const cors = require('cors')({ origin: true })
-admin.initializeApp()
+// logging
+const log = require('morgan')('dev'); // logging
+const chalk = require('chalk'); // require chalk module to give colors to console text
+const connected = chalk.bold.green; // create chalk variables
+const bodyParser = require('body-parser'); // parse body requests
+//
 dotenv.config()
 const axios = require('axios')
 //
@@ -17,12 +22,8 @@ app.use(cors)
 app.use(basicAuth({
   users: { admin: process.env.PASS }
 }))
-
-// Using App as the argument for onRequest(), you can pass a full Express app to an HTTP function
-// https://firebase.google.com/docs/functions/http-events#using_existing_express_apps
-
-// create an api to use express with cloud functions
-exports.api = functions.https.onRequest(app)
+app.use(bodyParser.json()); // parse json
+app.use(log)
 
 // 
 // 200 STATUS MONITOR
@@ -137,3 +138,5 @@ app.post('/verify', async (req, res) => {
     })
   }
 })
+
+app.listen(4000, () => console.log(connected(`Listening on port ${4000}!`)));
