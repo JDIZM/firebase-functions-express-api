@@ -30,7 +30,7 @@ exports.api = functions.https.onRequest(app)
 app.get('/', (req, res) => {
   // 
   cors(req, res, () => {
-    res.send(200)
+    res.sendStatus(200)
   })
 })
 
