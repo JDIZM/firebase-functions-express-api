@@ -2,7 +2,7 @@ const functions = require('firebase-functions')
 const admin = require('firebase-admin')
 const nodemailer = require('nodemailer')
 const dotenv = require('dotenv')
-const cors = require('cors')({ origin: true })
+const cors = require('cors')({ origin: true, credentials: true })
 admin.initializeApp()
 dotenv.config()
 const axios = require('axios')
@@ -13,7 +13,6 @@ const app = require('express')()
 const basicAuth = require('express-basic-auth')
 // Automatically allow cross-origin requests
 app.use(cors)
-
 app.use(basicAuth({
   users: { admin: process.env.PASS }
 }))
@@ -58,7 +57,7 @@ app.post('/send-mail', (req, res) => {
   // use cors
   cors(req, res, () => {
     // getting dest email by query string
-    // ?dest=hello@jamesdonnelly.dev
+    // ?dest=hello@email.com
     // const dest = req.query.dest
     const dest = process.env.DEST
 
@@ -110,30 +109,32 @@ app.post('/verify', async (req, res) => {
   const api = 'https://www.google.com/recaptcha/api/siteverify'
   const query = `?secret=${secret}&response=${response}`
   console.log(query)
-  try {
-    // post to api with axios 
-    axios.post(api + query, {
-      headers: {
-        // 'Content-Type': 'application/json'
-        "Content-Type": "application/x-www-form-urlencoded"
-      }
-    })
-    .then((response) => {
-      return res.send({
-        recaptcha: response.data
-        // handle success and score client side
+  cors(req, res, () => {
+    try {
+      // post to api with axios 
+      axios.post(api + query, {
+        headers: {
+          // 'Content-Type': 'application/json'
+          "Content-Type": "application/x-www-form-urlencoded"
+        }
       })
-    })
-    .catch((err) => {
-      //
-      // next(err)
+      .then((response) => {
+        return res.send({
+          recaptcha: response.data
+          // handle success and score client side
+        })
+      })
+      .catch((err) => {
+        //
+        // next(err)
+        res.send({
+          err
+        })
+      })
+    } catch(err) {
       res.send({
         err
       })
-    })
-  } catch(err) {
-    res.send({
-      err
-    })
-  }
+    }
+  })
 })
