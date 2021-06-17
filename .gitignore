@@ -1,4 +1,3 @@
 *.log
 .firebaserc
-firebase.json
-functions/package-lock.json
+ui-debug.log

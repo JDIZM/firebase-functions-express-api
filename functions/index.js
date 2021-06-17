@@ -86,6 +86,7 @@ app.post('/send-mail', (req, res) => {
       if (err) {
         return res.send(err.toString())
       }
+      // 
       return res.send('Message sent!')
     })
   })
@@ -98,23 +99,16 @@ app.post('/send-mail', (req, res) => {
 // receives json data, posts x-www-form-urlencoded
 
 app.post('/verify', async (req, res) => {
-  // can receive json no problem
-  // use req.query for query data, not body.
-  // http://expressjs.com/en/api.html#req.query
-  // handle json data
   const secret = process.env.SECRET
   const { response } = req.body
-  // console.log(secret, response)
   // create a query to send form-urlencoded data
   const api = 'https://www.google.com/recaptcha/api/siteverify'
   const query = `?secret=${secret}&response=${response}`
   console.log(query)
   cors(req, res, () => {
-    try {
       // post to api with axios 
       axios.post(api + query, {
         headers: {
-          // 'Content-Type': 'application/json'
           "Content-Type": "application/x-www-form-urlencoded"
         }
       })
@@ -125,16 +119,9 @@ app.post('/verify', async (req, res) => {
         })
       })
       .catch((err) => {
-        //
-        // next(err)
-        res.send({
+        return res.send({
           err
         })
       })
-    } catch(err) {
-      res.send({
-        err
-      })
-    }
   })
 })
